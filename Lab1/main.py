@@ -263,11 +263,11 @@ class network_h2():
 
 
 
-def train(model,  epoch = 1000, lr = 1e-3, optimizer = 'sgd', dataType = 'Linear'):
+def train(model,  epoch = 1000, lr = 1e-3, optimizer = 'sgd', dataType = 'linear'):
     loss_list = []
     epoch_list = []
 
-    if dataType == 'Linear':
+    if dataType == 'linear':
         x, y = generate_linear()
     else:
         x,y = generate_XOR_easy()
@@ -316,15 +316,15 @@ if __name__ == '__main__':
     '''
     #100%
     # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
-    train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'Linear')
+    train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
 
     #100%
     # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'adagrad', dataType = 'XOR')
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'adagrad', dataType = 'Linear')
+    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'adagrad', dataType = 'linear')
 
     #100%
     # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'XOR')
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'Linear')
+    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'linear')
 
     '''
      dif activation with sgd
