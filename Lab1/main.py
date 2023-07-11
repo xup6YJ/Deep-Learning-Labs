@@ -263,11 +263,11 @@ class network_h2():
 
 
 
-def train(model,  epoch = 1000, lr = 1e-3, optimizer = 'sgd', dataType = 'linear'):
+def train(model,  epoch = 1000, lr = 1e-3, optimizer = 'sgd', dataType = 'Linear'):
     loss_list = []
     epoch_list = []
 
-    if dataType == 'linear':
+    if dataType == 'Linear':
         x, y = generate_linear()
     else:
         x,y = generate_XOR_easy()
@@ -289,10 +289,14 @@ def train(model,  epoch = 1000, lr = 1e-3, optimizer = 'sgd', dataType = 'linear
 
     pred_y = model.forward(x)
     print('prediction:', pred_y)
+
+    print(f'\nDatatype: {dataType}, Optimizer: {optimizer}, Activation fun: {activation}')
+    print('Test loss : ', loss_mse(pred_y, y))
     show_result(x, y, pred_y)
     pred_y[pred_y > 0.5] = 1
     pred_y[pred_y <= 0.5] = 0
-    print(f'Acc: {np.sum(pred_y == y) / y.shape[0] * 100}%')
+
+    print(f'Test Acc: {np.sum(pred_y == y) / y.shape[0] * 100}%')
    
     #plot
     plt.plot(epoch_list, loss_list)
@@ -312,7 +316,7 @@ if __name__ == '__main__':
     '''
     #100%
     # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'Linear')
+    train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'Linear')
 
     #100%
     # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'adagrad', dataType = 'XOR')
@@ -320,7 +324,7 @@ if __name__ == '__main__':
 
     #100%
     # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'XOR')
-    train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'Linear')
+    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'Linear')
 
     '''
      dif activation with sgd
