@@ -112,15 +112,6 @@ class network_h2():
 
         self.hid_num = hid_num
         self.neuro_num = neuro_num
-        # self.layer_num = hid_num + 1
-        # self.units = []
-        # self.units.append(2)
-        # for _ in range(hid_num):
-        #     self.units.append(self.neuro_num)
-        # self.units.append(1)
-        # print('Neurons: ', self.units)
-
-        # self.momentum = np.zeros((in_channel + 1, out_channel))
 
         self.wsum_0 = 0
         self.wsum_1 = 0
@@ -282,7 +273,7 @@ def train(model,  epoch = 1000, lr = 1e-3, optimizer = 'sgd', dataType = 'linear
         model.backward(y)
         model.update(lr, optimizer = optimizer)
 
-        if (epoch+1) % 1000 == 0:
+        if (epoch+1) % 5000 == 0:
             print(f'epoch {epoch+1} loss : {loss}')
         loss_list.append(loss)
         epoch_list.append(epoch+1)
@@ -302,6 +293,7 @@ def train(model,  epoch = 1000, lr = 1e-3, optimizer = 'sgd', dataType = 'linear
     plt.plot(epoch_list, loss_list)
     plt.xlabel('epoch')
     plt.ylabel('loss')
+    plt.title(f"{dataType} Learning Curve")
     plt.savefig(f'{dataType}_{optimizer}_{activation}_{model.hid_num}_{model.neuro_num}.png')
     plt.show()
     plt.close()
@@ -309,49 +301,80 @@ def train(model,  epoch = 1000, lr = 1e-3, optimizer = 'sgd', dataType = 'linear
 if __name__ == '__main__':
 
  
-    model = network_h2(activation = 'relu')
-
+    model = network_h2(activation = 'sigmoid')
+    # model = network_h2(hid_num = 2, neuro_num = 5, activation = 'sigmoid')
     '''
     optimizer
     '''
     #100%
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
-    train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
 
+    # train(model = model, epoch = 12000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
     #100%
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'adagrad', dataType = 'XOR')
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'adagrad', dataType = 'linear')
+    # model = network_h2(neuro_num = 5, activation = 'sigmoid')
+    # train(model = model, epoch = 12000, lr = 1e-1, optimizer = 'adagrad', dataType = 'linear')
+    #100%
+    # model = network_h2(neuro_num = 5, activation = 'sigmoid')
+    # train(model = model, epoch = 12000, lr = 1e-1, optimizer = 'momentum', dataType = 'linear')
 
-    #100%
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'XOR')
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'linear')
+
+    # train(model = model, epoch = 12000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
+    # model = network_h2(activation = 'sigmoid')
+    # train(model = model, epoch = 12000, lr = 1e-1, optimizer = 'adagrad', dataType = 'XOR')
+    # model = network_h2(activation = 'sigmoid')
+    # train(model = model, epoch = 12000, lr = 1e-1, optimizer = 'momentum', dataType = 'XOR')
 
     '''
      dif activation with sgd
      '''
     # 76.2%/ 100%
+    # model = network_h2(hid_num = 2, neuro_num = 5, activation = 'sigmoid')
+    # train(model = model, epoch = 10000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
+    # #71.2% /100% 
+    # model = network_h2(hid_num = 2, neuro_num = 5, activation = 'tanh')
+    # train(model = model, epoch = 10000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
+    # #71.2% /100% 
+    # model = network_h2(hid_num = 2, neuro_num = 5, activation = 'relu')
+    # train(model = model, epoch = 10000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
+
+    # model = network_h2(hid_num = 2, neuro_num = 5, activation = 'sigmoid')
+    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
+    # model = network_h2(hid_num = 2, neuro_num = 5, activation = 'tanh')
+    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
+    # model = network_h2(hid_num = 2, neuro_num = 5, activation = 'relu')
+    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
+
+    #Without activation
     # model = network_h2(hid_num = 2, neuro_num = 2, activation = 'sigmoid')
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'XOR')
     # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
-
-    #71.2% /100% 
-    # model = network_h2(hid_num = 2, neuro_num = 2, activation = 'tanh')
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'momentum', dataType = 'XOR')
-    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
-
-    #33% / 90%
     # model = network_h2(hid_num = 2, neuro_num = 2, activation = None)
-    # train(model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
     # train(model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
+
+    # model = network_h2(hid_num = 2, neuro_num = 3, activation = 'sigmoid')
+    # train(model = model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
+    # model = network_h2(hid_num = 2, neuro_num = 3, activation = None)
+    # train(model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
+
 
     '''
      dif neurons
      '''
+    # model = network_h2(hid_num = 2, neuro_num = 2, activation = 'relu')
+    # train(model, epoch = 1000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
+    #100%
+    # model = network_h2(hid_num = 2, neuro_num = 10, activation = 'relu')
+    # train(model, epoch = 1000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
+
+    # model = network_h2(hid_num = 2, neuro_num = 2, activation = 'relu')
+    # train(model, epoch = 1000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
+    # model = network_h2(hid_num = 2, neuro_num = 10, activation = 'relu')
+    # train(model, epoch = 1000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
+
+    '''
+     dif lr
+     '''
     #46%, 76%
-    # model = network_h2(hid_num = 2, neuro_num = 2, activation = 'relu')
     # train(model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'linear')
-    # model = network_h2(hid_num = 2, neuro_num = 2, activation = 'relu')
-    # train(model, epoch = 15000, lr = 1e-1, optimizer = 'sgd', dataType = 'XOR')
+    # train(model, epoch = 15000, lr = 1e-3, optimizer = 'sgd', dataType = 'linear')
 
     #100%
     # model = network_h2(hid_num = 2, neuro_num = 10, activation = 'relu')
